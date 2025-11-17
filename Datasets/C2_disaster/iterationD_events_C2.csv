@@ -1,0 +1,8 @@
+event_id,timestamp,type,target_type,target_id,severity
+E1,1178,earthquake_shock,region,global,5
+E2,1488,aftershock,region,global,3
+E3,2145,link_down,link,L20,4
+E4,2305,link_down,link,L4,4
+E5,1552,link_down,link,L8,4
+E6,2025,link_down,link,L2,4
+E7,1727,link_down,link,L21,4
