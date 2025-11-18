@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[29]:
-
-
 # ITERATION-D Synthetic Dataset Generator (Notebook-Friendly)
 # Project: ITERATION-D – CAPES-STIC-AmSud
 
@@ -21,9 +15,6 @@ import pandas as pd
 # - Definir os tempos de início e fim do desastre com base na duração total.
 # - Ser consultada pelas demais partes do código para ajustar a geração das métricas.
 # É aqui que as configurações de cada cenário são definidas.
-
-# In[30]:
-
 
 def get_scenario_config(scenario, duration):
     cfg = {
@@ -102,9 +93,6 @@ def get_scenario_config(scenario, duration):
 # - quais são os parâmetros físicos dessas conexões,
 # - em que fase da simulação nos encontramos.
 
-# In[31]:
-
-
 def generate_nodes(n_edge, n_fog, n_cloud):
     device_types = ["sensor", "UAV", "wearable"]
     rows = []
@@ -164,16 +152,13 @@ def generate_nodes(n_edge, n_fog, n_cloud):
 # 
 # Parâmetros base por tecnologia
 # (Valores inspirados em medições reais de redes móveis, WiFi e fibra)
-# Tecnologia Latência base (ms)	Perda base Banda típica (Mbps)
+# Tecnologia Latência base (ms)	| Perda base | Banda típica (Mbps)
 # LTE	30–70	0.5–5%	10–50
 # WiFi	5–20	0.1–2%	50–300
 # LoRaWAN	50–150	1–5%	0.02–0.05 (muito baixa)
 # fibra	1–5	<0.1%	1000–10000
 # micro-ondas	5–15	0.1–1%	200–1000
 # satélite	150–700	1–10%	5–50
-
-# In[32]:
-
 
 def generate_links_topology(nodes, n_links):
     """
@@ -198,7 +183,7 @@ def generate_links_topology(nodes, n_links):
     pairs = []
 
     # ---------------
-    # Casos degenerados
+    # Casos muito específicos
     # ---------------
     if not fogs:
         # Sem FOG não há muito o que fazer em termos de arquitetura E–F–C.
@@ -313,9 +298,6 @@ def generate_links_topology(nodes, n_links):
 # ou 3) após o desastre.
 # Essa resposta determina como os modelos probabilísticos serão aplicados.
 
-# In[33]:
-
-
 def phase_from_time(t, cfg):
     if not cfg["disaster"]:
         return "normal"
@@ -324,9 +306,6 @@ def phase_from_time(t, cfg):
     if t < cfg["disaster_end"]:
         return "during_disaster"
     return "post_disaster"
-
-
-# In[34]:
 
 
 def build_neighbors(links):
@@ -386,8 +365,6 @@ def compute_flow_path(flow, links, nodes):
 # - gera efeitos de desastre, flapping, congestionamento etc.,
 # - devolve uma tabela longa com uma linha por (link × timestamp).
 # A saída possui dezenas, centenas ou milhares de linhas, dependendo dos parâmetros de duração e step.
-
-# In[35]:
 
 
 def generate_link_timeseries(links, cfg, duration, step):
@@ -512,9 +489,6 @@ def generate_link_timeseries(links, cfg, duration, step):
 # redução de carga (throttle),
 # migração de serviço.
 
-# In[36]:
-
-
 def generate_flows(nodes, links, cfg, duration):
     app_profiles = {
         "telemetria_critica": ("telemetria_critica", 1, 150, 0.99),
@@ -583,9 +557,6 @@ def generate_flows(nodes, links, cfg, duration):
 # - flapping em cenários específicos.
 # Esses eventos servem como gatilhos para degradação e ações de controle.
 
-# In[37]:
-
-
 def generate_events(links, cfg, duration):
     rows = []
     eid = 1
@@ -626,8 +597,6 @@ def generate_events(links, cfg, duration):
 # - migrate_service → mover serviço para outro nó
 #   
 # Essas ações representam algumas estratégias adaptativas que podem ser implementadas.
-
-# In[38]:
 
 
 def generate_control_actions(flows, cfg):
@@ -679,9 +648,6 @@ def generate_control_actions(flows, cfg):
 # - impacto do desastre,
 # - degradação acumulada,
 # - possíveis efeitos de congestionamento ou flapping.
-
-# In[39]:
-
 
 def generate_flow_timeseries(flows, links, nodes, link_timeseries, cfg, duration, step):
     """
@@ -844,9 +810,6 @@ def generate_flow_timeseries(flows, links, nodes, link_timeseries, cfg, duration
 # Garante reprodutibilidade (via seed).
 # Retorna tudo pronto, em um único dicionário de DataFrames — ideal para Jupyter.
 
-# In[40]:
-
-
 def run_generator(
     scenario,
     n_edge,
@@ -910,9 +873,6 @@ def run_generator(
 # Salvamos todos esses DataFrames em arquivos .csv com nomes padronizados, facilitando processamento e análise posterior.
 # 
 
-# In[41]:
-
-
 # Executa o gerador sintético de dados para o cenário escolhido
 
 scenario = "C2"
@@ -934,10 +894,6 @@ data = run_generator(
     seed=123         # Seed para garantir reprodutibilidade
 )
 
-
-# In[42]:
-
-
 # Salvamento automático de todos os arquivos gerados
 # Cada chave no dicionário 'data' vira um arquivo CSV.
 
@@ -952,10 +908,3 @@ for name, df in data.items():
 
     # Log informativo
     print("Arquivo salvo:", filename)
-
-
-# In[ ]:
-
-
-
-
