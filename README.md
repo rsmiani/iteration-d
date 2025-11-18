@@ -53,11 +53,11 @@ The topology is always coherent:
 
 | Scenario | Description |
 |---------|-------------|
-| **C1** | Stable network (no disaster) |
-| **C2** | Standard disaster |
-| **C3** | Disaster with adaptive recovery |
-| **C4** | Disaster with urban congestion |
-| **C5** | Disaster with link flapping |
+| **C1** | Stable network (no disaster) - OK|
+| **C2** | Standard disaster - OK|
+| **C3** | Disaster with adaptive recovery - Soon|
+| **C4** | Disaster with urban congestion - Soon|
+| **C5** | Disaster with link flapping - Soon|
 
 Each scenario changes link behavior and thus affects flow performance.
 
