@@ -1,7 +1,7 @@
 
 ---
 
-# **README in English (readme_en.md)**
+# **README**
 
 # ITERATION-D Synthetic Dataset Generator
 ### CAPES–STIC–AMSud International Project  
